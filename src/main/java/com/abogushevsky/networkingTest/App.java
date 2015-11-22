@@ -2,7 +2,9 @@ package com.abogushevsky.networkingTest;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.OutputStream;
 import java.net.*;
+import java.util.Scanner;
 
 /**
  * Hello world!
@@ -61,10 +63,14 @@ public class App
     	System.out.println("Client mode");
 		InetAddress addr = hostName == null ? InetAddress.getLocalHost() : InetAddress.getByName(hostName);
 		String data = "";
+		Scanner scanner = new Scanner(System.in);
 		while(data != ":q") {
+			data = scanner.nextLine();
 			try (Socket sock = new Socket(addr, PORT)) {
-				
+				OutputStream out = sock.getOutputStream();
+				out.write(data.getBytes());				
 			}
 		}
+		scanner.close();
     }
 }
