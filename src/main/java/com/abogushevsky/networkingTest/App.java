@@ -23,13 +23,13 @@ public class App
     	}
     	
     	try {
-	    	if (args.length > 0 && args[0] == "-s") {
+	    	if (args.length > 0 && args[0].equals("-s")) {
 	    		runAsServer();
 	    	} else {
-	    		if (args.length == 1 || args[0].length() == 0) {
-	    			runAsClient(null);
-	    		} else {
+	    		if (args.length == 1 && args[0].length() != 0) {
 	    			runAsClient(args[1]);
+	    		} else {	    			
+	    			runAsClient(null);
 	    		}
 	    	} 
     	} catch (UnknownHostException e) {
@@ -44,7 +44,7 @@ public class App
     private static void runAsServer() throws UnknownHostException, IOException {
     	System.out.println("Server mode");
 		try (ServerSocket srvSocket = new ServerSocket(PORT, SERVER_BACKLOG, InetAddress.getLocalHost())) {
-			System.out.println(String.format("Listening %d", SERVER_BACKLOG));
+			System.out.println(String.format("Listening %d", PORT));
 			while(true) {
 				Socket sock = srvSocket.accept();
 				System.out.println(String.format("Data recieved from %s", sock.getInetAddress().toString()));
