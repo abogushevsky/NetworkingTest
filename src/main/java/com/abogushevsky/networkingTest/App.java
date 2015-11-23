@@ -63,14 +63,18 @@ public class App
     	System.out.println("Client mode");
 		InetAddress addr = hostName == null ? InetAddress.getLocalHost() : InetAddress.getByName(hostName);
 		String data = "";
-		Scanner scanner = new Scanner(System.in);
-		while(data != ":q") {
-			data = scanner.nextLine();
-			try (Socket sock = new Socket(addr, PORT)) {
-				OutputStream out = sock.getOutputStream();
-				out.write(data.getBytes());				
+		try (Scanner scanner = new Scanner(System.in)) {
+			while(!data.equals(":q")) {
+				if (data.length() > 0) {
+					try (Socket sock = new Socket(addr, PORT)) {
+						OutputStream out = sock.getOutputStream();
+						out.write(data.getBytes());				
+					}
+				}
+				data = scanner.nextLine();
 			}
 		}
-		scanner.close();
+		
+		System.out.println("Client closed");
     }
 }
