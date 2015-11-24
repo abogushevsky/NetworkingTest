@@ -27,7 +27,7 @@ public class App
 	    		runAsServer();
 	    	} else {
 	    		if (args.length == 1 && args[0].length() != 0) {
-	    			runAsClient(args[1]);
+	    			runAsClient(args[0]);
 	    		} else {	    			
 	    			runAsClient(null);
 	    		}
